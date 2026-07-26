@@ -170,8 +170,8 @@ fun SongListScreen(
 							player.addToQueueSingle(song)
 						}
 					},
-					onPlaySong = { song ->
-						player.playNow(song)
+					onPlaySong = { index ->
+						player.playNow(songsState.data.orEmpty(), index)
 					},
 					onSetRating = { viewModel.rateSelectedSong(it) },
 					onDownload = { viewModel.downloadSong(it) },

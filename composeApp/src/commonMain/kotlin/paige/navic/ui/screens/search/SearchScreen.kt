@@ -303,7 +303,7 @@ fun SearchScreen(
 											modifier = Modifier
 												.background(MaterialTheme.colorScheme.surface),
 											onClick = {
-												player.playNow(song)
+												player.playNow(songs, index)
 											},
 											onLongClick = { viewModel.selectSong(song) },
 											verticalAlignment = Alignment.CenterVertically,

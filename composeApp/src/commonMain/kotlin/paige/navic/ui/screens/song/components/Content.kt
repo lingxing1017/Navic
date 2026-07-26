@@ -1,7 +1,7 @@
 package paige.navic.ui.screens.song.components
 
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import navic.composeapp.generated.resources.Res
@@ -24,7 +24,7 @@ fun LazyListScope.songListScreenContent(
 	onSetStarred: (Boolean) -> Unit,
 	onPlayNext: (DomainSong) -> Unit,
 	onAddToQueue: (DomainSong) -> Unit,
-	onPlaySong: (DomainSong) -> Unit,
+	onPlaySong: (Int) -> Unit,
 	onSetRating: (Int) -> Unit,
 	onDownload: (DomainSong) -> Unit,
 	onCancelDownload: (DomainSong) -> Unit,
@@ -32,7 +32,7 @@ fun LazyListScope.songListScreenContent(
 ) {
 	val data = state.data.orEmpty()
 	if (data.isNotEmpty()) {
-		items(data) { song ->
+		itemsIndexed(data) { index, song ->
 			val download = allDownloads.find { it.songId == song.id }
 			SongListScreenItem(
 				modifier = Modifier.animateItem(),
@@ -46,7 +46,7 @@ fun LazyListScope.songListScreenContent(
 				onSetShareId = onSetShareId,
 				onPlayNext = { onPlayNext(song) },
 				onAddToQueue = { onAddToQueue(song) },
-				onClick = { onPlaySong(song) },
+				onClick = { onPlaySong(index) },
 				onSetRating = onSetRating,
 				download = download,
 				onDownload = { onDownload(song) },

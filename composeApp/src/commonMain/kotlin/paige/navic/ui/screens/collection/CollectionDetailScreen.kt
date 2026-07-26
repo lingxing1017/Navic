@@ -81,7 +81,6 @@ fun CollectionDetailScreen(
 	)
 
 	val player = koinInject<MediaPlayerViewModel>()
-	val playerState by player.uiState.collectAsStateWithLifecycle()
 
 	val collectionState by viewModel.collectionState.collectAsState()
 	val collection = collectionState.data
@@ -248,13 +247,9 @@ fun CollectionDetailScreen(
 											count = group.value.count(),
 											isPlaylist = false,
 											onClick = {
-												if (playerState.currentSong?.id != song.id) {
-													player.playNow(
-														album,
-														album.songs.indexOfFirst { it.id == song.id })
-												} else {
-													player.togglePlay()
-												}
+												player.playNow(
+													album,
+													album.songs.indexOfFirst { it.id == song.id })
 											},
 											onLongClick = {
 												viewModel.selectSong(song)
@@ -302,11 +297,7 @@ fun CollectionDetailScreen(
 									count = collection.songs.count(),
 									isPlaylist = true,
 									onClick = {
-										if (playerState.currentSong?.id != song.id) {
-											player.playNow(collection, index)
-										} else {
-											player.togglePlay()
-										}
+										player.playNow(collection, index)
 									},
 									onLongClick = {
 										viewModel.selectSong(song)

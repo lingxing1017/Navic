@@ -110,7 +110,6 @@ fun ArtistDetailScreen(
 		parameters = { parametersOf(artistId) }
 	)
 	val player = koinInject<MediaPlayerViewModel>()
-	val playerState by player.uiState.collectAsStateWithLifecycle()
 
 	val selection by viewModel.selectedSong.collectAsStateWithLifecycle()
 	val selectedSongIsStarred by viewModel.selectedSongIsStarred.collectAsStateWithLifecycle()
@@ -319,11 +318,7 @@ fun ArtistDetailScreen(
 													song = song,
 													selected = selection == song,
 													onClick = {
-														if (playerState.currentSong?.id != song.id) {
-															player.playNow(songs, index)
-														} else {
-															player.togglePlay()
-														}
+														player.playNow(songs, index)
 													},
 													onLongClick = {
 														viewModel.selectSong(song)
